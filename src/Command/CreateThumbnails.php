@@ -49,7 +49,7 @@ class CreateThumbnails extends Command
         $files = $this->finder->files()->in($photoDir, false);
 
         foreach ($files as $file) {
-            if (preg_match("(jpg$|png$|gif$)", $file->getFilename())) {
+            if (preg_match("(\.jpg$|\.png$|\.gif$)", $file->getFilename())) {
                 $this->resizeFile($file);
                 $output->writeln('resize file ' . $file->getFilename() . ' is successfully.');
                 $this->s3amazon->putFiles($file, $file->getFilename());

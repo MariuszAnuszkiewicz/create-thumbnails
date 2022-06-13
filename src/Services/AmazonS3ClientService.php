@@ -13,7 +13,7 @@ class AmazonS3ClientService extends UploadFiles
     private const REGION = 'us-east-1';
     private const ACL = 'private';
 
-    public function putFiles($pathFile, $fileName)
+    public function putFiles($pathFile)
     {
         $s3Client = new S3Client([
             'version' => 'latest',
@@ -37,7 +37,7 @@ class AmazonS3ClientService extends UploadFiles
             try {
                 $result = $uploader->upload();
                 if ($result["@metadata"]["statusCode"] === 200) {
-                    print 'upload file ' . $fileName . ' is successfully.' . PHP_EOL;
+                    print 'upload file ' . $pathFile->getFileName() . ' is successfully.' . PHP_EOL;
                 }
             } catch (MultipartUploadException $e) {
                 rewind($source);
