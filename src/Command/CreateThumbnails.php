@@ -15,7 +15,6 @@ class CreateThumbnails extends Command
 {
     private const MAX_WIDTH = 150;
     protected static $defaultName = 'app:create-thumb';
-    private $params;
     private $s3amazon;
     private $filesystem;
     private $finder;

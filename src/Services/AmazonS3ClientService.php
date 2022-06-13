@@ -20,8 +20,8 @@ class AmazonS3ClientService extends UploadFiles
                 'version' => 'latest',
                 'region' => self::REGION,
                 'credentials' => [
-                    'key' => $this->params->get('access_key'),
-                    'secret' => $this->params->get('secret_key')
+                    'key' => $this->getParams()->get('access_key'),
+                    'secret' => $this->getParams()->get('secret_key')
                 ]
             ]);
 
