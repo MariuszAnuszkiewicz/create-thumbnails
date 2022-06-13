@@ -13,7 +13,7 @@ class AmazonS3ClientService extends UploadFiles
     private const REGION = 'us-east-1';
     private const ACL = 'private';
 
-    public function putFiles($file)
+    public function putFiles($file, $destinationFolder)
     {
         if (is_object($file) || is_string($file)) {
             $s3Client = new S3Client([
@@ -29,7 +29,7 @@ class AmazonS3ClientService extends UploadFiles
             $uploader = new ObjectUploader(
                 $s3Client,
                 self::BUCKET,
-                basename($file),
+                $destinationFolder . $file->getFileName(),
                 $source,
                 self::ACL
             );
@@ -37,6 +37,7 @@ class AmazonS3ClientService extends UploadFiles
             do {
                 try {
                     $result = $uploader->upload();
+                    //dd($result['ObjectURL']);
                     if ($result["@metadata"]["statusCode"] === 200) {
                         print 'upload file ' . $file->getFileName() . ' is successfully.' . PHP_EOL;
                     }
