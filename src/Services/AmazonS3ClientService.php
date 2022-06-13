@@ -31,8 +31,8 @@ class AmazonS3ClientService extends UploadFiles
                 case 'thumbnails':
                     $outputSource .= './thumbnails/' . $file->getFileName();
                 break;
-                case 'image-thumbnails':
-                    $outputSource .= './image/thumbnails/' . $file->getFileName();
+                case 'images-thumbnails':
+                    $outputSource .= './images/thumbnails/' . $file->getFileName();
                 break;
             }
 

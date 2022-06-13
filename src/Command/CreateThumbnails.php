@@ -52,7 +52,7 @@ class CreateThumbnails extends Command
             if (preg_match("(\.jpg$|\.png$|\.gif$)", $file->getFilename())) {
                 $this->resizeFile($file);
                 $output->writeln('resize file ' . $file->getFilename() . ' is successfully.');
-                $this->s3amazon->putFiles($file, 'image-thumbnails');
+                $this->s3amazon->putFiles($file, 'images-thumbnails');
             } else {
                 $output->writeln('file extension is wrong.');
                 die();
