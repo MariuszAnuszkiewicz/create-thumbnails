@@ -41,7 +41,7 @@ class CreateThumbnails extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $photoDir = $this->s3amazon->params->get('photo_dir');
+        $photoDir = $this->s3amazon->getParams()->get('photo_dir');
         if (!$this->filesystem->exists($photoDir)) {
             $this->filesystem->mkdir($photoDir, 0700);
         }
