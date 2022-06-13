@@ -25,32 +25,40 @@ class AmazonS3ClientService extends UploadFiles
                 ]
             ]);
 
-            $source = fopen($file, 'rb');
+            $inputSource = fopen($file, 'rb');
+            $outputSource = '';
+            switch ($destinationFolder) {
+                case 'thumbnails':
+                    $outputSource .= './thumbnails/' . $file->getFileName();
+                break;
+                case 'image-thumbnails':
+                    $outputSource .= './image/thumbnails/' . $file->getFileName();
+                break;
+            }
+
             $uploader = new ObjectUploader(
                 $s3Client,
                 self::BUCKET,
-                $destinationFolder . $file->getFileName(),
-                $source,
+                $outputSource,
+                $inputSource,
                 self::ACL
             );
 
             do {
                 try {
                     $result = $uploader->upload();
-                    //dd($result['ObjectURL']);
                     if ($result["@metadata"]["statusCode"] === 200) {
                         print 'upload file ' . $file->getFileName() . ' is successfully.' . PHP_EOL;
                     }
                 } catch (MultipartUploadException $e) {
-                    rewind($source);
-                    $uploader = new MultipartUploader($s3Client, $source, [
+                    rewind($inputSource);
+                    $uploader = new MultipartUploader($s3Client, $inputSource, [
                         'state' => $e->getState(),
                         'acl' => self::ACL,
                     ]);
                 }
             } while (!isset($result));
-
-            fclose($source);
+            fclose($inputSource);
         }
     }
 }

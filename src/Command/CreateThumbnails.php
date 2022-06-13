@@ -34,7 +34,7 @@ class CreateThumbnails extends Command
     {
         $this
             ->setName(self::$defaultName)
-            ->setDescription('Send images to external source by console.')
+            ->setDescription('Send images to external source by cli.')
             ->setHelp("This command allows send images to external disk and before resize it.")
         ;
     }
@@ -52,7 +52,7 @@ class CreateThumbnails extends Command
             if (preg_match("(\.jpg$|\.png$|\.gif$)", $file->getFilename())) {
                 $this->resizeFile($file);
                 $output->writeln('resize file ' . $file->getFilename() . ' is successfully.');
-                $this->s3amazon->putFiles($file, './thumbnails' . DIRECTORY_SEPARATOR);
+                $this->s3amazon->putFiles($file, 'image-thumbnails');
             } else {
                 $output->writeln('file extension is wrong.');
                 die();
