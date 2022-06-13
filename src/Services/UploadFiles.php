@@ -10,5 +10,5 @@ abstract class UploadFiles
     {
         $this->params = $params;
     }
-    abstract public function putFiles($pathFile);
+    abstract public function putFiles($file);
 }
